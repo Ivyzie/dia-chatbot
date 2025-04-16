@@ -1,6 +1,5 @@
 import os
 import json
-import boto3
 import argparse
 import logging
 from dotenv import load_dotenv
@@ -8,7 +7,6 @@ from langchain.text_splitter import MarkdownHeaderTextSplitter, TokenTextSplitte
 from langchain.docstore.document import Document
 import weaviate
 from weaviate.auth import AuthApiKey
-# google.generativeai is imported but not used here; remove if unnecessary
 
 # Configure logging
 logging.basicConfig(
@@ -26,7 +24,7 @@ def get_weaviate_class_name(file_key):
     For our website KB ingestion, we always use a Domain class.
     """
     logging.debug(f"Extracting Weaviate class name from file_key: {file_key}")
-    parts = file_key.split("/")
+    parts = file_key.split(os.sep)
     if len(parts) >= 3:
         folder = parts[-2]
         class_name = f"Domain_{folder}"
@@ -50,19 +48,14 @@ def create_weaviate_client():
     logging.debug("Weaviate client created successfully")
     return client
 
-def get_s3_file_contents(bucket, file_key):
+def get_local_file_contents(file_path):
     """
-    Retrieve S3 file contents as a UTF-8 decoded string.
+    Retrieve local file contents as a UTF-8 decoded string.
     """
-    logging.debug(f"Fetching S3 file contents from bucket: {bucket}, file_key: {file_key}")
-    s3 = boto3.resource(
-        "s3",
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
-        aws_secret_access_key=os.getenv('AWS_SECRET_KEY'),
-        region_name=os.getenv('AWS_REGION'),
-    )
-    content = s3.Object(bucket, file_key).get()["Body"].read().decode("utf-8")
-    logging.debug("S3 file contents retrieved successfully")
+    logging.debug(f"Reading local file: {file_path}")
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    logging.debug("Local file contents read successfully")
     return content
 
 def ensure_weaviate_class(client, class_name):
@@ -148,39 +141,38 @@ def insert_markdown_docs(client, docs, class_name):
             batch.add_data_object(data_obj, class_name)
     logging.info(f"Inserted {len(docs)} documents into {class_name}")
 
-def process_s3_file_and_store(bucket, file_key):
+def process_local_file_and_store(file_path):
     """
-    Process a markdown file from S3 and store its content in Weaviate.
+    Process a markdown file from local disk and store its content in Weaviate.
     This function assumes that the file contains website-related markdown content.
     """
-    logging.debug(f"Starting processing for S3 file: {file_key}")
+    logging.debug(f"Starting processing for local file: {file_path}")
     client = create_weaviate_client()
-    content = get_s3_file_contents(bucket, file_key)
-    class_name = get_weaviate_class_name(file_key)
+    content = get_local_file_contents(file_path)
+    class_name = get_weaviate_class_name(file_path)
     logging.debug("Processing markdown content")
     docs = split_markdown_by_headers_and_token_limit(content)
     insert_markdown_docs(client, docs, class_name)
-    logging.debug("Completed processing for S3 file")
+    logging.debug("Completed processing for local file")
 
 # --- Main Execution ---
 def main():
     logging.debug("Starting main execution")
     parser = argparse.ArgumentParser(
-        description="Process scraped markdown content from S3 and store it in Weaviate for chatbot KB."
+        description="Process scraped markdown content from local folder and store it in Weaviate for chatbot KB."
     )
     parser.add_argument(
         "--dir", type=str, required=True,
-        help="The directory name under 'scraped_content' in S3 (e.g., ASKedu_2502270001)"
+        help="The directory name under 'scraped_content' (e.g., ASKedu_2502270001)"
     )
     args = parser.parse_args()
 
     # Remove "uploads/" if present in the directory argument
     directory = args.dir.replace("uploads/", "")
-    bucket = "ultraai-kb"
-    # Construct the file key based on the sanitized directory argument.
-    file_key = f"scraped_content/{directory}/content.md"
-    logging.info(f"Processing S3 file: {file_key}")
-    process_s3_file_and_store(bucket, file_key)
+    # Construct the file path based on the sanitized directory argument.
+    file_path = os.path.join("scraped_content", directory, "content.md")
+    logging.info(f"Processing local file: {file_path}")
+    process_local_file_and_store(file_path)
     logging.debug("Main execution complete")
 
 if __name__ == "__main__":
