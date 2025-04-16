@@ -1,0 +1,9 @@
+boto3
+python-dotenv
+langchain
+weaviate-client
+google-generativeai
+llama-cpp-python
+transformers
+promptsource
+datasets
