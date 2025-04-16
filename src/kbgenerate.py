@@ -7,6 +7,7 @@ from langchain.text_splitter import MarkdownHeaderTextSplitter, TokenTextSplitte
 from langchain.docstore.document import Document
 import weaviate
 from weaviate.auth import AuthApiKey
+import concurrent.futures
 
 # Configure logging
 logging.basicConfig(
@@ -35,17 +36,18 @@ def get_weaviate_class_name(file_key):
 
 def create_weaviate_client():
     """
-    Create and return a Weaviate client instance.
+    Create and return a local Weaviate client instance (anonymous).
     """
-    logging.debug("Creating Weaviate client")
+    logging.debug("Creating local Weaviate client")
+    # default to local weaviate
+    url = os.getenv("WEAVIATE_URL", "http://localhost:8080")
     client = weaviate.Client(
-        url=os.getenv('WEAVIATE_URL'),
-        auth_client_secret=AuthApiKey(api_key=os.getenv('WEAVIATE_API_KEY')),
+        url=url,
         additional_headers={
-            "X-OpenAI-Api-Key": os.getenv('OPENAI_API_KEY')
+            "X-OpenAI-Api-Key": os.getenv("OPENAI_API_KEY")
         }
     )
-    logging.debug("Weaviate client created successfully")
+    logging.debug(f"Local Weaviate client created against {url}")
     return client
 
 def get_local_file_contents(file_path):
@@ -88,10 +90,24 @@ def ensure_weaviate_class(client, class_name):
         logging.info(f"Weaviate class exists: {class_name}")
     return class_name
 
+def _split_doc_token_chunks(args):
+    """
+    Helper function for multiprocessing: splits a single doc into token chunks.
+    """
+    doc, max_tokens, chunk_overlap = args
+    token_splitter = TokenTextSplitter(
+        encoding_name="gpt2",
+        chunk_size=max_tokens,
+        chunk_overlap=chunk_overlap,
+    )
+    sub_chunks = token_splitter.split_text(doc.page_content)
+    # Return tuples of (text, metadata)
+    return [(sub_text, doc.metadata) for sub_text in sub_chunks]
+
 def split_markdown_by_headers_and_token_limit(text: str, max_tokens: int = 1536, chunk_overlap: int = 0):
     """
     Split markdown text into smaller chunks based on Markdown headers and token limits.
-    Each chunk retains header metadata.
+    Each chunk retains header metadata. Uses multiprocessing for speed.
     """
     logging.debug("Splitting markdown text by headers")
     header_splitter = MarkdownHeaderTextSplitter(
@@ -104,22 +120,14 @@ def split_markdown_by_headers_and_token_limit(text: str, max_tokens: int = 1536,
     header_docs = header_splitter.split_text(text)
     logging.debug(f"Header split produced {len(header_docs)} document(s)")
 
-    token_splitter = TokenTextSplitter(
-        encoding_name="gpt2",
-        chunk_size=max_tokens,
-        chunk_overlap=chunk_overlap,
-    )
+    # Prepare arguments for multiprocessing
+    args = [(doc, max_tokens, chunk_overlap) for doc in header_docs]
 
     final_docs = []
-    for doc in header_docs:
-        logging.debug("Splitting a header document into token chunks")
-        sub_chunks = token_splitter.split_text(doc.page_content)
-        logging.debug(f"Document split into {len(sub_chunks)} chunk(s)")
-        if len(sub_chunks) == 1:
-            final_docs.append(doc)
-        else:
-            for sub_text in sub_chunks:
-                final_docs.append(Document(page_content=sub_text, metadata=doc.metadata))
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        for result in executor.map(_split_doc_token_chunks, args):
+            for sub_text, metadata in result:
+                final_docs.append(Document(page_content=sub_text, metadata=metadata))
     logging.debug(f"Total final documents count: {len(final_docs)}")
     return final_docs
 
