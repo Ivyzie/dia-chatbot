@@ -195,8 +195,6 @@ def main():
     )
     args = parser.parse_args()
 
-    # Remove "uploads/" if present in the directory argument
-    directory = args.dir.replace("uploads/", "")
     # Construct the file path based on the sanitized directory argument.
     file_path = os.path.join("scraped_content", directory, "content.md")
     logging.info(f"Processing local file: {file_path}")
