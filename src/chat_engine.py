@@ -16,7 +16,7 @@ from pathlib import Path
 from textwrap import shorten
 
 from intent_emotion_router import analyse           # (intent, emotion)
-from kbretriever import build_retriever             # your Phase 2 code
+from kbretriever import build_retriever             # Phase 2 code
 from tools.llm_loader import load_llm                     # returns ctransformers model
 from transformers import AutoTokenizer
 
@@ -46,7 +46,7 @@ def _count_tokens(text: str) -> int:
     return len(_tok.encode(text))
 
 def build_prompt(user_msg: str, docs, intent: str, emotion: str) -> str:
-    # pick top‑3 chunks and truncate each at 300 chars
+    # pick top‑2 chunks and truncate each at 300 chars
     context_pieces, token_total = [], 0
     for d in docs[:2]:                       # only first 2
         snippet = shorten(d.page_content.replace("\n", " "), 300)

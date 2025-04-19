@@ -1,6 +1,8 @@
 from kbgenerate import build_retriever, create_weaviate_client
 from intent_emotion_router import analyse
 
+
+#for testing kb after uploading to weaviate
 if __name__ == "__main__":
     CLASS_NAME = "CarList"          # or whatever class you ingested
     retriever  = build_retriever(CLASS_NAME)
