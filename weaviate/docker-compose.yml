@@ -13,6 +13,5 @@ services:
       OPENAI_API_KEY: "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"
       TRANSFORMERS_INFERENCE_API: "local"
       TRANSFORMERS_MODEL_NAME: "BAAI/bge-small-en-v1.5"
-	
     volumes:
       - ./data:/var/lib/weaviate

@@ -1,9 +1,12 @@
 boto3
 python-dotenv
 langchain
-weaviate-client
+langchain_community
+weaviate-client==3.26.7
 google-generativeai
 llama-cpp-python
 transformers
 promptsource
 datasets
+ctransformers
+crawl4ai

@@ -8,5 +8,5 @@ def load_llm():
         GGUF_PATH,
         model_type="phi2",   # Zephyr is Mistral‑architecture
         context_length=8192,
-        gpu_layers=0            # >0 if you have VRAM
+        gpu_layers=28            # >0 if you have VRAM
     )

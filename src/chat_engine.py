@@ -28,7 +28,7 @@ CHUNK_MAX_CHARS = 500                                  # truncate per chunk
 MAX_NEW_TOKENS  = 250
 TEMPERATURE     = 0.7
 
-PROMPT_TEMPLATE = Path("prompts/assistant_prompt.txt").read_text()
+PROMPT_TEMPLATE = Path("prompts/assistant_prompt.txt").read_text(encoding="utf-8")
 
 MAX_PROMPT_TOKENS = 300
 

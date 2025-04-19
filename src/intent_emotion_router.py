@@ -13,7 +13,7 @@ def _intent_pipe():
         model=AutoModelForSequenceClassification.from_pretrained(mdl),
         tokenizer=AutoTokenizer.from_pretrained(mdl),
         top_k=None,                # modern arg; returns scores
-        device=-1                  # set 0 for GPU
+        device=0                  # set 0 for GPU
     )
 
 @functools.lru_cache(1)
@@ -22,7 +22,7 @@ def _emotion_pipe():
         "text-classification",
         model="j-hartmann/emotion-english-distilroberta-base",
         top_k=None,
-        device=-1
+        device=0                  # set 0 for GPU
     )
 
 # ── intent helper ─────────────────────────────────────────────────────────
