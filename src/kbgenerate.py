@@ -9,6 +9,13 @@ import weaviate
 from weaviate.auth import AuthApiKey
 import concurrent.futures
 
+from langchain_community.retrievers import WeaviateHybridSearchRetriever
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.vectorstores import Weaviate
+
+from uuid import uuid5, NAMESPACE_URL
+
+
 # Configure logging
 logging.basicConfig(
     level=logging.DEBUG,
@@ -19,20 +26,12 @@ load_dotenv()
 
 # --- Helper Functions ---
 
-def get_weaviate_class_name(file_key):
-    """
-    Derive the Weaviate class name from the file key.
-    For our website KB ingestion, we always use a Domain class.
-    """
-    logging.debug(f"Extracting Weaviate class name from file_key: {file_key}")
-    parts = file_key.split(os.sep)
-    if len(parts) >= 3:
-        folder = parts[-2]
-        class_name = f"Domain_{folder}"
-        logging.debug(f"Determined class name: {class_name}")
-        return class_name
-    logging.debug("Insufficient parts in file_key; defaulting to 'DefaultClass'")
-    return "DefaultClass"
+def get_weaviate_class_name(file_key: str) -> str:
+    folder = os.path.basename(os.path.dirname(file_key))
+    safe = "".join(c if c.isalnum() else "_" for c in folder)
+    if safe[0].isdigit():
+        safe = f"_{safe}"
+    return f"Domain_{safe}"
 
 def create_weaviate_client():
     """
@@ -80,7 +79,7 @@ def ensure_weaviate_class(client, class_name):
             "properties": [
                 {"name": "headers", "dataType": ["text[]"], "description": "Extracted markdown headers"},
                 {"name": "content", "dataType": ["text"], "description": "Main text content"},
-                {"name": "metadata", "dataType": ["text[]"], "description": "Generated metadata tags"}
+                {"name": "category", "dataType": ["text"], "description": "FAQ section/category"}
             ]
         }
         logging.debug(f"Creating Weaviate class with schema: {schema}")
@@ -115,6 +114,7 @@ def split_markdown_by_headers_and_token_limit(text: str, max_tokens: int = 1536,
             ("#", "Header1"),
             ("##", "Header2"),
             ("###", "Header3"),
+            ("####", "Header4")
         ]
     )
     header_docs = header_splitter.split_text(text)
@@ -132,24 +132,22 @@ def split_markdown_by_headers_and_token_limit(text: str, max_tokens: int = 1536,
     return final_docs
 
 def insert_markdown_docs(client, docs, class_name):
-    """
-    Insert markdown documents (with metadata) into the specified Weaviate class.
-    """
-    logging.debug(f"Inserting {len(docs)} markdown document(s) into Weaviate class: {class_name}")
-    class_name = ensure_weaviate_class(client, class_name)
-    client.batch.configure(batch_size=100)
+    client.batch.configure(batch_size=100, dynamic=True, timeout_retries=3)
     with client.batch as batch:
         for doc in docs:
+            category = doc.metadata.get("Header1", "Uncategorised")
             data_obj = {
                 "content": doc.page_content,
                 "headers": list(doc.metadata.values()),
-                # Optionally include additional metadata if needed:
-                # "metadata": [ ... ]
+                "category": category
             }
-            batch.add_data_object(data_obj, class_name)
-    logging.info(f"Inserted {len(docs)} documents into {class_name}")
+            uid = uuid5(NAMESPACE_URL, doc.page_content)
+            try:
+                batch.add_data_object(data_obj, class_name, uuid=uid)
+            except Exception as e:
+                logging.error(f"Chunk insert failed: {e}")
 
-def process_local_file_and_store(file_path):
+def process_local_file_and_store(file_path, override_class: str | None = None):
     """
     Process a markdown file from local disk and store its content in Weaviate.
     This function assumes that the file contains website-related markdown content.
@@ -157,11 +155,29 @@ def process_local_file_and_store(file_path):
     logging.debug(f"Starting processing for local file: {file_path}")
     client = create_weaviate_client()
     content = get_local_file_contents(file_path)
-    class_name = get_weaviate_class_name(file_path)
+    # allow override from CLI
+    class_name = override_class or get_weaviate_class_name(file_path)
     logging.debug("Processing markdown content")
     docs = split_markdown_by_headers_and_token_limit(content)
     insert_markdown_docs(client, docs, class_name)
     logging.debug("Completed processing for local file")
+
+def build_retriever(class_name: str, category: str | None = None):
+    client = create_weaviate_client()
+    store  = Weaviate(
+        client=client,
+        index_name=class_name,
+        text_key="content",
+        attributes=["category", "headers"]
+    )
+    search_kwargs = {"k": 8}
+    if category:
+        search_kwargs["filters"] = {
+            "path": ["category"],
+            "operator": "Equal",
+            "valueText": category
+        }
+    return store.as_retriever(search_kwargs=search_kwargs)
 
 # --- Main Execution ---
 def main():
@@ -173,6 +189,10 @@ def main():
         "--dir", type=str, required=True,
         help="The directory name under 'scraped_content' (e.g., ASKedu_2502270001)"
     )
+    parser.add_argument(
+        "--class-name", dest="class_name", type=str, default=None,
+        help="Optional override for Weaviate class name"
+    )
     args = parser.parse_args()
 
     # Remove "uploads/" if present in the directory argument
@@ -180,7 +200,7 @@ def main():
     # Construct the file path based on the sanitized directory argument.
     file_path = os.path.join("scraped_content", directory, "content.md")
     logging.info(f"Processing local file: {file_path}")
-    process_local_file_and_store(file_path)
+    process_local_file_and_store(file_path, args.class_name)
     logging.debug("Main execution complete")
 
 if __name__ == "__main__":

@@ -1,0 +1,18 @@
+version: '3.4'
+services:
+  weaviate:
+    image: semitechnologies/weaviate:latest
+    ports:
+      - "8080:8080"
+    environment:
+      QUERY_DEFAULTS_LIMIT: "20"
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+      PERSISTENCE_DATA_PATH: "./data"
+      DEFAULT_VECTORIZER_MODULE: "text2vec-openai"
+      ENABLE_MODULES: "text2vec-openai"
+      OPENAI_API_KEY: "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"
+      TRANSFORMERS_INFERENCE_API: "local"
+      TRANSFORMERS_MODEL_NAME: "BAAI/bge-small-en-v1.5"
+	
+    volumes:
+      - ./data:/var/lib/weaviate
