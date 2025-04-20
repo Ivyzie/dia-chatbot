@@ -187,7 +187,7 @@ def main():
     )
     parser.add_argument(
         "--dir", type=str, required=True,
-        help="The directory name under 'scraped_content' (e.g., ASKedu_2502270001)"
+        help="The directory which content.md is located in."
     )
     parser.add_argument(
         "--class-name", dest="class_name", type=str, default=None,
