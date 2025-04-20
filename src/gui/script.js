@@ -26,10 +26,10 @@ function appendMessage(text, sender) {
 function getBotResponse(userMessage) {
   // Basic responses, customize as needed
   const msg = userMessage.toLowerCase();
-  if (msg.includes("hello")) return "FAGGOT";
+  if (msg.includes("hello")) return "testt";
   if (msg.includes("how are you")) return "I'm just code, but I'm doing fine!";
-  if (msg.includes("bye")) return "FAGGOT";
-  return "STUPID BITCH";
+  if (msg.includes("bye")) return "testt";
+  return "testt testt";
 }
 
 function checkEnter(event) {
