@@ -1,4 +1,4 @@
-from kbgenerate import build_retriever, create_weaviate_client
+from kb_ingest import build_retriever, create_weaviate_client
 from intent_emotion_router import analyse
 
 
