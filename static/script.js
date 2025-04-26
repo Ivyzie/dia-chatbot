@@ -1,5 +1,7 @@
 let typingInterval;
 let typingEl;
+let latencies = [];
+let statsEl;
 
 async function sendMessage() {
   const input   = document.getElementById("user-input");
@@ -12,6 +14,8 @@ async function sendMessage() {
 
   showTypingIndicator();
 
+  const startTime = performance.now();
+
   try {
     const res = await fetch("/chat", {
       method : "POST",
@@ -21,15 +25,30 @@ async function sendMessage() {
     if (!res.ok) throw new Error("Network response was not ok");
     const data = await res.json();
 
+    const endTime = performance.now();
+    recordLatency(endTime - startTime);
+
     hideTypingIndicator();
-    appendMessage(data.reply || "Hmm … I couldn’t generate a reply.", "bot");
+    appendMessage(data.reply || "Hmm … I couldn’t generate a reply.", "bot");
   } catch (err) {
+    const endTime = performance.now();
+    recordLatency(endTime - startTime);
+
     hideTypingIndicator();
     appendMessage("Sorry, I couldn’t reach the server.", "bot");
     console.error(err);
   } finally {
     input.disabled = false;
     input.focus();
+  }
+}
+
+function recordLatency(latency) {
+  latencies.push(latency);
+  const avg = latencies.reduce((sum, t) => sum + t, 0) / latencies.length;
+  if (statsEl) {
+    statsEl.textContent = 
+      `Response time: ${latency.toFixed(0)} ms (avg: ${avg.toFixed(0)} ms)`;
   }
 }
 
@@ -74,7 +93,16 @@ function checkEnter(event) {
 }
 
 const WELCOME = "Hi there! I'm CarList Assistant—your guide to finding and buying cars. How can I help you today?";
+
 window.addEventListener("DOMContentLoaded", () => {
+  // Insert a stats bar above the chat window
+  statsEl = document.createElement("div");
+  statsEl.id = "latency-stats";
+  statsEl.style.cssText = "font-size:0.9em; color:#666; margin:8px 0;";
+  const chatWin = document.getElementById("chat-window");
+  chatWin.parentNode.insertBefore(statsEl, chatWin);
+
+  // Show the welcome message
   appendMessage(WELCOME, "bot");
   document.getElementById("user-input").focus();
 });
