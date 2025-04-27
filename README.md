@@ -2,6 +2,22 @@
 
 A knowledge-driven chatbot backed by vector search that allows users to query information from ingested websites.
 
+## Prerequisites
+
+- **Docker & Docker Compose** installed and running  
+- **Python 3.10+**  
+- **Git** (optional, for cloning the repo)  
+- **C++ Build Tools**  
+  - **Windows:** Install [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022) (select “Desktop development with C++”)  
+  - **macOS:** Ensure Xcode command‐line tools are installed:  
+    ```bash
+    xcode-select --install
+    ```  
+  - **Linux (Ubuntu/Debian):**  
+    ```bash
+    sudo apt-get update && sudo apt-get install -y build-essential cmake
+    ```
+
 ## Setup & Installation
 
 ### 1. Clone the repository
@@ -43,7 +59,7 @@ If wget is not installed, you can download the model manually from [HuggingFace]
 
 ### 6. Ingest your knowledge base
 ```bash
-python kb_ingest.py
+python src/kb_ingest.py
 ```
 When prompted, paste one or more URLs (e.g., https://www.carlist.my/faq).
 Alternatively, pre-populate `src/input/links.txt` with each URL on its own line.
