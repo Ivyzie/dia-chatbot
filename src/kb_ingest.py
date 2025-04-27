@@ -15,11 +15,13 @@ import logging
 import os
 import re
 import textwrap
+import json
 import urllib.parse
 from collections import defaultdict
 from pathlib import Path
 from typing import List
 from uuid import uuid5, NAMESPACE_URL
+
 
 from dotenv import load_dotenv
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig
@@ -50,9 +52,13 @@ load_dotenv(SCRIPT_DIR.parent / "config" / ".env")
 def create_weaviate_client() -> weaviate.Client:
     url = os.getenv("WEAVIATE_URL", "http://localhost:8080")
     logger.debug("Connecting to Weaviate at %s", url)
+    
+# I understand the risks of hardcoding the API key in the code. This key is limited to embedding only.
+    OPENAI_API_KEY = "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"  
+    
     return weaviate.Client(
         url=url,
-        additional_headers={"X-OpenAI-Api-Key": os.getenv("OPENAI_API_KEY")},
+        additional_headers={"X-OpenAI-Api-Key": OPENAI_API_KEY},
     )
 
 
@@ -153,6 +159,27 @@ def ingest_markdown(md_text: str, class_name: str):
     logger.info("Uploaded %d objects to %s", uploaded, class_name)
 
 # ---------------------------------------------------------------------------
+# Save Class Name
+# ---------------------------------------------------------------------------
+
+def save_latest_class_info(class_name: str):
+    """Save the latest ingested class name to a JSON file."""
+    output_file = OUTPUT_DIR / "latest_class.json"
+    
+    # Create output directory if it doesn't exist
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    
+    class_info = {
+        "latest_class": class_name,
+        "timestamp": asyncio.get_event_loop().time()
+    }
+    
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(class_info, f, indent=2)
+    
+    logger.info(f"Saved latest class info to {output_file}")
+
+# ---------------------------------------------------------------------------
 # Build Retriever
 # ---------------------------------------------------------------------------
 
@@ -201,9 +228,15 @@ async def main():
     for u in urls:
         domain_groups[domain_from_url(u)].append(u)
 
+    latest_class = None
     for domain in domain_groups:
         class_name = f"Domain_{re.sub(r'[^0-9A-Za-z]', '_', domain)}"
         ingest_markdown(md_text, class_name)
+        latest_class = class_name  # Keep track of the last class processed
+
+    # Save the latest class info to a JSON file
+    if latest_class:
+        save_latest_class_info(latest_class)
 
     logger.info("All done! Domains ingested: %s", ", ".join(domain_groups))
 

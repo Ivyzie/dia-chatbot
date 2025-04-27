@@ -11,16 +11,29 @@ This module is imported by app.py (Flask) — no CLI REPL code.
 """
 
 import os
+import json
 from pathlib import Path
 from textwrap import shorten
 
 from intent_emotion_router import analyse
-from kbretriever import build_retriever
+from kb_ingest import build_retriever
 from tools.llm_loader import load_llm
 from transformers import AutoTokenizer
 
 # ───────────────────────── settings ─────────────────────────
-CLASS_NAME       = os.getenv("WEAV_CLASS", "CarList")
+def get_latest_class_name():
+    """Get the latest class name from JSON file or use default."""
+    json_path = Path(__file__).parent / "output" / "latest_class.json"
+    if json_path.exists():
+        try:
+            with open(json_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                return data.get("latest_class", "Domain_carlist_my")
+        except (json.JSONDecodeError, IOError):
+            return os.getenv("WEAV_CLASS", "Domain_carlist_my")
+    return os.getenv("WEAV_CLASS", "Domain_carlist_my")
+
+CLASS_NAME = get_latest_class_name()
 CHUNK_MAX_CHARS  = 500
 MAX_NEW_TOKENS   = 100
 TEMPERATURE      = 0.5
