@@ -36,7 +36,7 @@ pip install -r requirements.txt
 mkdir -p src/models
 
 # Download the Zephyr model
-wget -O models/zephyr-7b-beta.Q4_K_M.gguf https://huggingface.co/TheBloke/zephyr-7B-beta-GGUF/resolve/main/zephyr-7b-beta.Q4_K_M.gguf
+wget -O src/models/zephyr-7b-beta.Q4_K_M.gguf https://huggingface.co/TheBloke/zephyr-7B-beta-GGUF/resolve/main/zephyr-7b-beta.Q4_K_M.gguf
 ```
 If wget is not installed, you can download the model manually from [HuggingFace](https://huggingface.co/TheBloke/zephyr-7B-beta-GGUF/resolve/main/zephyr-7b-beta.Q4_K_M.gguf) and place it in the `src/models` directory.
 
