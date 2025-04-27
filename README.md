@@ -42,7 +42,7 @@ If wget is not installed, you can download the model manually from [HuggingFace]
 
 ### 6. Ingest your knowledge base
 ```bash
-python kb_ingest.py
+python src/kb_ingest.py
 ```
 When prompted, paste one or more URLs (e.g., https://www.carlist.my/faq).
 Alternatively, pre-populate `src/input/links.txt` with each URL on its own line.
