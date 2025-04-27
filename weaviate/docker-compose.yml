@@ -1,4 +1,3 @@
-version: '3.4'
 services:
   weaviate:
     image: semitechnologies/weaviate:latest
@@ -8,9 +7,18 @@ services:
       QUERY_DEFAULTS_LIMIT: "20"
       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
       PERSISTENCE_DATA_PATH: "./data"
-      DEFAULT_VECTORIZER_MODULE: "text2vec-openai"
-      ENABLE_MODULES: "text2vec-openai"
-      TRANSFORMERS_INFERENCE_API: "local"
-      TRANSFORMERS_MODEL_NAME: "BAAI/bge-small-en-v1.5"
+      # Switch to the local Transformers module
+      DEFAULT_VECTORIZER_MODULE: "text2vec-transformers"
+      ENABLE_MODULES: "text2vec-transformers"
+      # Point at our Transformer inference service
+      TRANSFORMERS_INFERENCE_API: "http://transformers:8080"
     volumes:
       - ./data:/var/lib/weaviate
+    depends_on:
+      - transformers
+
+  transformers:
+    image: cr.weaviate.io/semitechnologies/transformers-inference:sentence-transformers-all-MiniLM-L6-v2-onnx
+    environment:
+      ENABLE_CUDA: "0"
+      MODEL_NAME: "sentence-transformers/all-MiniLM-L6-v2"        # or "1" if you have CUDA drivers available

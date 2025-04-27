@@ -51,35 +51,39 @@ load_dotenv(SCRIPT_DIR.parent / "config" / ".env")
 
 def create_weaviate_client() -> weaviate.Client:
     url = os.getenv("WEAVIATE_URL", "http://localhost:8080")
-    logger.debug("Connecting to Weaviate at %s", url)
-    
-# I understand the risks of hardcoding the API key in the code. This key is limited to embedding only.
-    OPENAI_API_KEY = "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"  
-    
-    return weaviate.Client(
-        url=url,
-        additional_headers={"X-OpenAI-Api-Key": OPENAI_API_KEY},
-    )
+    return weaviate.Client(url=url)
 
 
 def ensure_class(client: weaviate.Client, class_name: str):
     existing = {c["class"] for c in client.schema.get().get("classes", [])}
     if class_name in existing:
         return
+
+    vect_module = os.getenv("VECTORIZER_MODULE", "text2vec-transformers")
+    model_name  = os.getenv("TRANSFORMERS_MODEL_NAME",
+                            "sentence-transformers/all-MiniLM-L6-v2")
+
     schema = {
         "class": class_name,
         "description": f"KB content for {class_name}",
-        "vectorizer": "text2vec-openai",
-        "moduleConfig": {"text2vec-openai": {"model": "text-embedding-3-small"}},
+        "vectorizer": vect_module,
+        "moduleConfig": {
+            vect_module: {
+                "model": model_name
+            }
+        },
         "properties": [
-            {"name": "headers", "dataType": ["text[]"]},
-            {"name": "content", "dataType": ["text"]},
+            {"name": "headers",  "dataType": ["text[]"]},
+            {"name": "content",  "dataType": ["text"]},
             {"name": "category", "dataType": ["text"]},
         ],
     }
-    client.schema.create_class(schema)
-    logger.info("Created Weaviate class %s", class_name)
 
+    client.schema.create_class(schema)
+    logger.info(
+        "Created Weaviate class '%s' using module '%s' (model=%s)",
+        class_name, vect_module, model_name
+    )
 # ---------------------------------------------------------------------------
 # Markdown splitting
 # ---------------------------------------------------------------------------
