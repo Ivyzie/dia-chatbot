@@ -45,6 +45,8 @@ venv\Scripts\activate      # Windows PowerShell
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
+
+playwright install
 ```
 
 ### 5. Download the Zephyr model
