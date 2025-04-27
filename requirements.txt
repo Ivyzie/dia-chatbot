@@ -10,3 +10,5 @@ ctransformers
 ctransformers[cuda]
 datasets
 crawl4ai
+flask
+flask-cors
