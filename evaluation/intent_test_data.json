@@ -1,0 +1,766 @@
+[
+  {
+    "query": "The website keeps freezing when I search for cars",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "I can't upload my car photos to the listing",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Your app crashes every time I try to save a car",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Login button doesn't work on my phone",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Website error when filtering by price",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Can't reset my password",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "The site keeps logging me out",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "How do I enable notifications?",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Can't access my saved listings",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Error 404 when clicking on Honda listings",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Website is not loading images properly",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "App not working on my Android phone",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Payment page gives an error",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Login issues with my account",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "The map feature isn't loading",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Your site has a broken link",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Website not compatible with Safari",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "How do I change my profile picture?",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Form keeps resetting when I submit",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "My account settings won't save",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Getting server error on checkout",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Your website is extremely slow",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "My password reset email never arrived",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Website shows wrong price after login",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Search function not working properly",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Car photos not loading on listings",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "How do I delete my search history?",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Website keeps freezing on Firefox",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "App crashes whenever I open messages",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Can't open PDF brochures on your site",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Login page is broken",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "The filter options aren't working",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Your site has display issues on mobile",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Website keeps showing old listings",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Error when sorting by newest cars",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Captcha not working on registration page",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Site navigation menu is broken",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Getting error message during checkout",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Website cookies problem",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Can't change my email address in settings",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Search filters not working properly",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Login page timeout error",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "App is using too much battery",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Your website is not secure",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Site logs me out during payment",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Contact form submission error",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "How do I update my payment information?",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Website shows incorrect car details",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "404 error when accessing my saved cars",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Price calculator not working",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Need help resetting my password",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Videos not playing on car listings",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "How do I opt out of email notifications?",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Browser keeps crashing on your website",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Can't view my purchase history",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Website not loading CSS properly",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Login page not accepting my credentials",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Your site has broken images",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "Getting database error message",
+    "intent": "TechSupport"
+  },
+  {
+    "query": "I want to buy a new Honda Civic",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What's the price of Toyota Vios 2023?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you have Perodua Myvi in stock?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "How much is a BMW 3 Series?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Looking for Honda CR-V under RM120,000",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "I want to purchase a Proton X50",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you offer financing for Mazda cars?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What's the down payment for Honda City?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Looking to buy a Tesla Model 3",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you have any hybrid cars for sale?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What's the installment for a RM80k car?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "I need a car with 7 seats",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Are there any Toyota Camrys in white?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Can I test drive a Proton X70?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What Honda cars do you have in stock?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Looking for a used Perodua Axia",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Show me SUVs under RM100,000",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you have any Mercedes on sale?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What's your best discount on Nissan?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "I want to buy a car with good resale value",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "How much is loan interest for cars?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you accept trade-ins for old cars?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Looking for cars with leather seats",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Can I get a loan for BMW purchase?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What's the waiting time for new orders?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Can I buy a car without down payment?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Any discounts on Toyota this month?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "I'm looking for a first-hand car",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Buying a Honda HRV this weekend",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Need a sedan under RM70,000",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What's the cost of Proton X50 top spec?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Show me cars with panoramic sunroof",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you have electric cars for sale?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What's the monthly payment for City?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "I want to buy a SUV for my family",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Looking for cars with low mileage",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Can I purchase a car online?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you deliver cars to my home?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you have Honda Jazz in stock?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "I'm interested in buying a Camry",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Show me cars with best finance rates",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What's the price of Bezza 1.3 Premium?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Any special offers for Toyota Corolla?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you have Toyota Innova for test drive?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Can I get car insurance through you?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Looking for reconditioned Japanese cars",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What cars come with extended warranty?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you have cars with factory warranty?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Is it cheaper to buy in cash?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you sell second-hand luxury cars?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Looking to buy a car with Android Auto",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Need help finding a family SUV",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "Do you have the new Honda City in red?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "What's the cheapest Perodua model?",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "I want to buy a new pickup truck",
+    "intent": "SalesInquiry"
+  },
+  {
+    "query": "How does Honda CR-V compare to Toyota RAV4?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's the fuel consumption of Perodua Myvi?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Is the Toyota Camry hybrid worth buying?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How many airbags in Proton X50?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What engine is in the Honda City?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How often should I service my Perodua?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What does ADAS stand for in car features?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Are CVT transmissions reliable?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How much boot space in Honda City?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's the top speed of Toyota Vios?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Which is better, Myvi or Axia?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How long do car batteries last?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's the meaning of cc in engines?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Is premium fuel needed for BMW?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How reliable are Proton engines?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's the ground clearance of Honda BR-V?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Explain how push-start button works",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What is the difference between ABS and EBD?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How often should I rotate tires?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What does ECU stand for in cars?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How long do timing belts typically last?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's better, alloy or steel wheels?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Difference between petrol and diesel engines",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How to improve fuel efficiency?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What does the check engine light mean?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What is the function of a catalytic converter?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How do car airbag systems work?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What is torque in car specifications?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Can I use synthetic oil in my old car?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's the difference between 4WD and AWD?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How to check transmission fluid?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What is the best engine oil for Malaysia?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How do turbocharged engines work?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What are the dimensions of Honda City?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How to tell if shock absorbers are worn?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What does TPMS mean in car features?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How fuel-efficient are hybrid cars?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's the difference between sedan and hatchback?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How does cruise control work?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What is the lifespan of car alternators?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How much horsepower in Proton X70?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Are LED headlights better than halogen?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's the seating capacity of Honda BR-V?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Explain the car safety rating system",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How do anti-lock brakes work?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's better, manual or automatic?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How to interpret car tire specifications?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What is the average car lifespan in Malaysia?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How does lane assist technology work?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What's the maximum weight a Hilux can carry?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How does keyless entry system work?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What is the best tire pressure?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "Explain how car air conditioning works",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How do hybrid engines work?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What is the function of a car's head gasket?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What to look for in a used car engine?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "How much can the Toyota Innova fit in the back?",
+    "intent": "ProductFAQ"
+  },
+  {
+    "query": "What are the best weather conditions to drive?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "Can you call me a Grab car?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "What's the fastest route to Penang?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "How do I renew my road tax?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "Can you play some music?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "What time does JPJ open?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "How do I get to Kuala Lumpur from here?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "When is the next F1 race?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "What's the best restaurant nearby?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "Who won the World Cup?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "What's your name?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "Tell me a joke about cars",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "How do I invest in car company stocks?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "What's the weather like today?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "When is the next public holiday?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "How do I apply for a driving license?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "What's the exchange rate today?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "Where is the nearest petrol station?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "Can you recommend a good mechanic?",
+    "intent": "UnknownIntent"
+  },
+  {
+    "query": "What is the current petrol price?",
+    "intent": "UnknownIntent"
+  }
+]

@@ -39,7 +39,7 @@ def _count_tokens(text: str) -> int:
 
 def build_prompt(user_msg: str, docs, intent: str, emotion: str) -> str:
     context_pieces, token_total = [], 0
-    for d in docs[:2]:                                  # top‑2 chunks
+    for d in docs[:1]:                                  # top‑2 chunks
         snippet = shorten(d.page_content.replace("\n", " "), 300)
         needed  = _count_tokens(snippet)
         if token_total + needed > MAX_PROMPT_TOKENS:
