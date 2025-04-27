@@ -14,6 +14,7 @@ git clone https://github.com/Ivyzie/dia-chatbot
 cd weaviate/
 docker-compose up -d
 ```
+This step might take more than 10 minutes to pull docker images.
 Ensure Docker is running and port 8080 is available.
 
 ### 3. Create & activate a Python virtual environment
