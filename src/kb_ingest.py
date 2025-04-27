@@ -51,14 +51,15 @@ load_dotenv(SCRIPT_DIR.parent / "config" / ".env")
 
 def create_weaviate_client() -> weaviate.Client:
     url = os.getenv("WEAVIATE_URL", "http://localhost:8080")
-    # Get API key from environment variable instead of hardcoding
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    logger.debug("Connecting to Weaviate at %s", url)
     
-    headers = {}
-    if OPENAI_API_KEY:
-        headers["X-OpenAI-Api-Key"] = OPENAI_API_KEY
+# I understand the risks of hardcoding the API key in the code. This key is limited to embedding only.
+    OPENAI_API_KEY = "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"  
     
-    return weaviate.Client(url=url, additional_headers=headers)
+    return weaviate.Client(
+        url=url,
+        additional_headers={"X-OpenAI-Api-Key": OPENAI_API_KEY},
+    )
 
 
 def ensure_class(client: weaviate.Client, class_name: str):
