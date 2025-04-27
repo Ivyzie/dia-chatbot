@@ -30,14 +30,24 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 5. Ingest your knowledge base
+### 5. Download the Zephyr model
+```bash
+# Create models directory if it doesn't exist
+mkdir -p src/models
+
+# Download the Zephyr model
+wget -O models/zephyr-7b-beta.Q4_K_M.gguf https://huggingface.co/TheBloke/zephyr-7B-beta-GGUF/resolve/main/zephyr-7b-beta.Q4_K_M.gguf
+```
+If wget is not installed, you can download the model manually from [HuggingFace](https://huggingface.co/TheBloke/zephyr-7B-beta-GGUF/resolve/main/zephyr-7b-beta.Q4_K_M.gguf) and place it in the `src/models` directory.
+
+### 6. Ingest your knowledge base
 ```bash
 python kb_ingest.py
 ```
 When prompted, paste one or more URLs (e.g., https://www.carlist.my/faq).
-Alternatively, pre-populate `input/links.txt` with each URL on its own line.
+Alternatively, pre-populate `src/input/links.txt` with each URL on its own line.
 
-### 6. Launch the Flask backend
+### 7. Launch the Flask backend
 ```bash
 python src/app.py
 ```

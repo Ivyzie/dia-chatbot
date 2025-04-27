@@ -1,5 +1,6 @@
 config/
 output/
+models/
 __pycache__/
 .venv/
 
